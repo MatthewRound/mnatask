@@ -1,7 +1,7 @@
 <?php
 
 spl_autoload_register(function ($class) {
-	$newClass = str_replace("\\", "/", $class);
+    $newClass = str_replace("\\", "/", $class);
     include_once './' . $newClass . '.php';
 });
 
@@ -30,11 +30,11 @@ $dave = Actor::generate("Dave", $date);
 
 $date = new DateTime();
 $date->setDate(2016, 1, 1);
-$movie = Movie::generate($_title = "A home movie: Alisons Birtday", $_runTime = 90, $date);
-$movie->addActor("Mother", $mom);
-$movie->addActor("Father", $dad);
-$movie->addActor("Daughter", $alison);
-$movie->addActor("Son", $dave);
+$movie = Movie::generate($date, $_title = "A home movie: Alisons Birtday", $_runTime = 90);
+$movie->addActor($mom, "Mother");
+$movie->addActor($dad, "Father");
+$movie->addActor($alison, "Daughter");
+$movie->addActor($dave, "Son");
 
 
 // To Use
