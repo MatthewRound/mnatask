@@ -31,10 +31,10 @@ $dave = Actor::generate("Dave", $date);
 $date = new DateTime();
 $date->setDate(2016, 1, 1);
 $movie = Movie::generate($_title = "A home movie: Alisons Birtday", $_runTime = 90, $date);
-$movie->addActor($mom);
-$movie->addActor($dad);
-$movie->addActor($alison);
-$movie->addActor($dave);
+$movie->addActor("Mother", $mom);
+$movie->addActor("Father", $dad);
+$movie->addActor("Daughter", $alison);
+$movie->addActor("Son", $dave);
 
 //echo 'test.php(+30 1-16),movie->addActor type=';var_dump($movie);
 

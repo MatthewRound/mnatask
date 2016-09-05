@@ -13,7 +13,7 @@ class Movie extends Entity implements EntityInterface
 	private $releaseDate;
 	private $actors;
 
-	public function	addActor(Actor $actor)
+	public function	addActor($charecter = "Character", Actor $actor)
 	{
 		$actorBornYet = false;
 		$actorDob = $actor->getDob();
@@ -32,7 +32,7 @@ class Movie extends Entity implements EntityInterface
 	public function	getActors($sortByAge = false)
 	{
 		if ($sortByAge) {
-			sort($this->actors, 'moviecollection\entities\Movie::CompareActors');
+			usort($this->actors, 'moviecollection\entities\Movie::CompareActors');
 		}
 		return $this->actors;
 	}
@@ -40,7 +40,7 @@ class Movie extends Entity implements EntityInterface
 
 	public static function CompareActors($a, $b)
 	{
-		return $a->getDob()->diff($b->getDob())->format('%R%a') >= 0;
+		return $a->getDob()->diff($b->getDob())->format('%R%a') <= 0;
 	}
 
 
