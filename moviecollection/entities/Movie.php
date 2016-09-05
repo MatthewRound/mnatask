@@ -35,7 +35,9 @@ class Movie extends Entity implements EntityInterface
     /**
      * title
      *
-     * @var mixed
+     * The movie title
+     *
+     * @var String
      * @access private
      */
     private $title;
@@ -44,7 +46,9 @@ class Movie extends Entity implements EntityInterface
     /**
      * runtime
      *
-     * @var mixed
+     * The movie duration in mins
+     *
+     * @var int
      * @access private
      */
     private $runtime;
@@ -53,7 +57,9 @@ class Movie extends Entity implements EntityInterface
     /**
      * releaseDate
      *
-     * @var mixed
+     * The movie release date
+     *
+     * @var \DateTime
      * @access private
      */
     private $releaseDate;
@@ -62,7 +68,9 @@ class Movie extends Entity implements EntityInterface
     /**
      * actors
      *
-     * @var []
+     * List of actors in this movie
+     *
+     * @var [\moviecollection\entities\Actor]
      * @access private
      */
     private $actors;
@@ -71,12 +79,15 @@ class Movie extends Entity implements EntityInterface
     /**
      * addActor
      *
-     * @param string $charecter
-     * @param Actor $actor
+     * Adds an actor to this movie
+     *
+     * @param string                          $character What Character the actor will play
+     * @param \moviecollection\entities\Actor $actor
+     *
      * @access public
      * @return void
      */
-    public function addActor(Actor $actor, $charecter = "Character")
+    public function addActor(Actor $actor, $character = "Character")
     {
         $actorBornYet = false;
         $actorDob = $actor->getDob();
@@ -85,7 +96,7 @@ class Movie extends Entity implements EntityInterface
         $intervalStr = $interval->format('%R%a');
         $actorBornYet = $intervalStr <= -1;
         if ($actorBornYet) {
-            $this->actors[$charecter] = $actor;
+            $this->actors[$character] = $actor;
         } else {
             throw new \Exception("Actor Born After Movie Release");
         }
@@ -95,9 +106,11 @@ class Movie extends Entity implements EntityInterface
     /**
      * getActors
      *
-     * @param mixed $sortByAge
+     * Gets a list of the actors in this movie
+     *
+     * @param bool $sortByAge Should they be reverse sorted by age
      * @access public
-     * @return void
+     * @return [\moviecollection\entities\Actor]
      */
     public function getActors($sortByAge = false)
     {
@@ -111,11 +124,14 @@ class Movie extends Entity implements EntityInterface
     /**
      * CompareActors
      *
-     * @param mixed $a
-     * @param mixed $b
+     * Comapres two Actors for thier dob
+     *
+     * @param \moviecollection\entities\Actors $a
+     * @param \moviecollection\entities\Actors $b
+     *
      * @static
      * @access public
-     * @return void
+     * @return bool
      */
     public static function compareActors($a, $b)
     {
@@ -126,8 +142,10 @@ class Movie extends Entity implements EntityInterface
     /**
      * generateUUID
      *
+     * Generates a uuid for this actor
+     *
      * @access public
-     * @return void
+     * @return String
      */
     public function generateUUID()
     {
@@ -139,6 +157,8 @@ class Movie extends Entity implements EntityInterface
 
     /**
      * __construct
+     *
+     * Default Constructor
      *
      * @access private
      * @return void
@@ -155,12 +175,15 @@ class Movie extends Entity implements EntityInterface
     /**
      * generate
      *
-     * @param DateTime $releaseDate
-     * @param string $title
-     * @param int $runtime
+     * Generates a movie based on arguments
+     *
+     * @param DateTime $releaseDate The movie release date
+     * @param string   $title       The movie title
+     * @param int      $runtime     The runtime
+     *
      * @static
      * @access public
-     * @return void
+     * @return /moviecollection/entities/Movie
      */
     public static function generate(DateTime $releaseDate, $title = '', $runtime = 60)
     {
@@ -180,7 +203,9 @@ class Movie extends Entity implements EntityInterface
     /**
      * setTitle
      *
-     * @param string $title
+     * Sets the title
+     *
+     * @param string $title The title to set
      * @access public
      * @return void
      */
@@ -201,7 +226,9 @@ class Movie extends Entity implements EntityInterface
     /**
      * setRuntime
      *
-     * @param int $runtime
+     * Sets the runtime
+     *
+     * @param int $runtime The runtime to set in mins
      * @access public
      * @return void
      */
@@ -221,7 +248,9 @@ class Movie extends Entity implements EntityInterface
     /**
      * setReleaseDate
      *
-     * @param DateTime $releaseDate
+     * Sets the release date
+     *
+     * @param DateTime $releaseDate The movie's release date
      * @access public
      * @return void
      */
@@ -234,8 +263,10 @@ class Movie extends Entity implements EntityInterface
     /**
      * toJson
      *
+     * Represents this object as json
+     *
      * @access public
-     * @return void
+     * @return string
      */
     public function toJson()
     {

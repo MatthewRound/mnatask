@@ -35,7 +35,9 @@ class Actor extends Entity implements EntityInterface
     /**
      * name
      *
-     * @var mixed
+     * The actors name
+     *
+     * @var string
      * @access private
      */
     private $name;
@@ -44,7 +46,9 @@ class Actor extends Entity implements EntityInterface
     /**
      * dob
      *
-     * @var mixed
+     * The actors Date of Birth
+     *
+     * @var \DateTime
      * @access private
      */
     private $dob;
@@ -53,8 +57,10 @@ class Actor extends Entity implements EntityInterface
     /**
      * generateUUID
      *
+     * Generates a uuid for this actor
+     *
      * @access public
-     * @return void
+     * @return string
      */
     public function generateUUID()
     {
@@ -66,6 +72,8 @@ class Actor extends Entity implements EntityInterface
 
     /**
      * __construct
+     *
+     * Contstructor
      *
      * @access private
      * @return void
@@ -80,8 +88,10 @@ class Actor extends Entity implements EntityInterface
     /**
      * getName
      *
+     * Gets the actors name
+     *
      * @access public
-     * @return void
+     * @return string
      */
     public function getName()
     {
@@ -92,8 +102,10 @@ class Actor extends Entity implements EntityInterface
     /**
      * getDob
      *
+     * Gets the actors Date of birth
+     *
      * @access public
-     * @return void
+     * @return \DateTime
      */
     public function getDob()
     {
@@ -104,7 +116,9 @@ class Actor extends Entity implements EntityInterface
     /**
      * setName
      *
-     * @param string $name
+     * Sets the actors name
+     *
+     * @param string $name The name to set
      * @access public
      * @return void
      */
@@ -113,6 +127,8 @@ class Actor extends Entity implements EntityInterface
         $nameOk = strlen($name) >= 3;
         if ($nameOk) {
             $this->name = $name;
+        } else {
+            throw new \Exception("Actor's name too short");
         }
     }
 
@@ -120,7 +136,9 @@ class Actor extends Entity implements EntityInterface
     /**
      * setDob
      *
-     * @param \DateTime $dob
+     * Sets the Date of birth
+     *
+     * @param \DateTime $dob The Date of birth to set
      * @access public
      * @return void
      */
@@ -141,11 +159,13 @@ class Actor extends Entity implements EntityInterface
     /**
      * generate
      *
-     * @param mixed $name
-     * @param mixed $dob
+     * Generates and actor based on args
+     *
+     * @param string    $name The name of the actor
+     * @param \DateTime $dob  The date of birth
      * @static
      * @access public
-     * @return void
+     * @return \moviecollection\entities\Actor
      */
     public static function generate($name, $dob)
     {
@@ -164,8 +184,10 @@ class Actor extends Entity implements EntityInterface
     /**
      * toJson
      *
+     * Represents this as json string
+     *
      * @access public
-     * @return void
+     * @return string
      */
     public function toJson()
     {

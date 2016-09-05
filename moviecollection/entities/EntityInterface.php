@@ -13,7 +13,6 @@
  *
  */
 
-
 /**
  * EntityInterface
  *
@@ -25,5 +24,15 @@
  */
 interface EntityInterface
 {
+
+
+    /**
+     * generateUUID
+     *
+     * Generates a uuid
+     *
+     * @access public
+     * @return string
+     */
     public function generateUUID();
 }

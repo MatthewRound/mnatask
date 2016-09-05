@@ -13,7 +13,6 @@
  *
  */
 
-
 /**
  * Entity
  *
@@ -27,8 +26,11 @@
 abstract class Entity
 {
 
+
     /**
      * uuid
+     *
+     * This entity's uuid
      *
      * @var string
      * @access protected
@@ -38,6 +40,8 @@ abstract class Entity
 
     /**
      * __construct
+     *
+     * Default constructor
      *
      * @access private
      * @return void
@@ -51,8 +55,10 @@ abstract class Entity
     /**
      * getUUID
      *
+     * Generates a uuid
+     *
      * @access public
-     * @return void
+     * @return String the uuid
      */
     public function getUUID()
     {
