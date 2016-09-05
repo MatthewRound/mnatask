@@ -31,8 +31,9 @@ class Movie extends Entity implements EntityInterface
 
 	public function     generateUUID()
 	{
-		return "";
-		//TODO generate this
+		$str = $this->title . $this->releaseDate->format("Y-m-d") . $this->runtime;
+		$hash = md5($str);
+		return $hash;
 	}
 
 

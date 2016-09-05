@@ -1,11 +1,9 @@
 <?php
 
-
 spl_autoload_register(function ($class) {
 	$newClass = str_replace("\\", "/", $class);
     include_once './' . $newClass . '.php';
 });
-
 
 
 use \moviecollection\entities\Actor as Actor;

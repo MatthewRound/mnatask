@@ -13,8 +13,9 @@ class Actor extends Entity implements EntityInterface
 
 	public function 	generateUUID()
 	{
-		return "";
-		//TODO generate this
+		$str = $this->name . $this->dob->format('Y-M-d');
+		$hash = md5($str);
+		return $hash;
 	}
 
     private function     __construct() {
