@@ -79,5 +79,10 @@ class Movie extends Entity implements EntityInterface
 		$this->releaseDate = $releaseDate;
 	}
 
+	public function toJson()
+	{
+		//TODO complete this
+		return json_encode($this);
+	}
 
 }

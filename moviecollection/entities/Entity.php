@@ -3,7 +3,7 @@
 abstract class Entity
 {
 
-	public $uuid = '';
+	protected $uuid = '';
 
 	private function 	__construct()
 	{
@@ -18,11 +18,5 @@ abstract class Entity
 		return $this->uuid;
 	}
 
-
-	public function toJson()
-	{
-		//TODO complete this
-		return json_encode($this);
-	}
 
 }

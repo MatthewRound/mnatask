@@ -9,6 +9,7 @@ class Actor extends Entity implements EntityInterface
 {
 
     private $name;
+
     private $dob;
 
 	public function 	generateUUID()
@@ -38,16 +39,23 @@ class Actor extends Entity implements EntityInterface
 
     public function setName($name = "")
     {
-        //TODO validation
-	$this->name = $name;
+		$nameOk = strlen($name) >= 3;
+		if ($nameOk) {
+			$this->name = $name;
+		}
     }
 
 
     public function     setDob(\DateTime $dob)
-    {
-		//TODO validation
-	$this->dob = $dob;
-    }
+	{
+		$now = new DateTime();
+		$interval = $now->diff($dob);
+		$intervalStr = $interval->format('%R%a');
+		$hasBeenBornYet = $intervalStr <= -1;
+		if ($hasBeenBornYet) {
+			$this->dob = $dob;
+		}
+	}
 
     public static function generate($name, $dob){
         $self = new self();
