@@ -1,5 +1,6 @@
 <?php
 
+// bootstrap
 spl_autoload_register(function ($class) {
     $newClass = str_replace("\\", "/", $class);
     include_once './' . $newClass . '.php';
@@ -11,6 +12,7 @@ use \moviecollection\entities\Movie as Movie;
 
 
 
+//test data
 $date = new DateTime();
 $date->setDate(1981, 10, 30);
 $mom = Actor::generate("Mom", $date);
@@ -38,6 +40,5 @@ $movie->addActor($dave, "Son");
 
 
 // To Use
-// $movie->toJson();
-// $movie->getActors($_sortByAge = true);
-
+// $json = $movie->toJson();
+// $sortedActors = $movie->getActors($_sortByAge = true);
