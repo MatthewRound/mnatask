@@ -8,7 +8,7 @@ use moviecollection\entities\EntityInterface;
 class Movie extends Entity implements EntityInterface
 {
 
-	protected $title;
+	private $title;
 	private $runtime;
 	private $releaseDate;
 	private $actors;
@@ -22,7 +22,7 @@ class Movie extends Entity implements EntityInterface
 		$intervalStr = $interval->format('%R%a');
 		$actorBornYet = $intervalStr <= -1;
 		if ($actorBornYet) {
-			$this->actors[] = $actor;
+			$this->actors[$charecter] = $actor;
 		} else {
 			throw new \Exception("Actor Born After Movie Release");
 		}
@@ -108,8 +108,15 @@ class Movie extends Entity implements EntityInterface
 
 	public function toJson()
 	{
-		//TODO complete this
-		return json_encode($this);
+		$ob = new \StdClass();
+		$ob->title = $this->title;
+		$ob->runtime = $this->runtime;
+		$ob->releaseDate = $this->releaseDate->format('Y-M-d');
+		$ob->actors = [];
+		foreach($this->actors as $role => $actor) {
+			$ob->actors[$role] = $actor->toJson();
+		}
+		return json_encode($ob);
 	}
 
 }

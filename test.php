@@ -36,11 +36,8 @@ $movie->addActor("Father", $dad);
 $movie->addActor("Daughter", $alison);
 $movie->addActor("Son", $dave);
 
-//echo 'test.php(+30 1-16),movie->addActor type=';var_dump($movie);
 
-$actors = $movie->getActors(true);
-echo 'test.php(+41 1-7),actors type=';var_dump($actors);
-
-
-
+// To Use
+// $movie->toJson();
+// $movie->getActors($_sortByAge = true);
 

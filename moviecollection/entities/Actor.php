@@ -70,4 +70,13 @@ class Actor extends Entity implements EntityInterface
         }
         return $self;
     }
+
+
+	public function 	toJson()
+	{
+		$ob = new \StdClass();
+		$ob->name = $this->name;
+		$ob->dob = $this->dob->format('Y-M-d');
+		return json_encode($ob);
+	}
 }
