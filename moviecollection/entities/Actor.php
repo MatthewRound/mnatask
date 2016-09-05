@@ -54,6 +54,8 @@ class Actor extends Entity implements EntityInterface
 		$hasBeenBornYet = $intervalStr <= -1;
 		if ($hasBeenBornYet) {
 			$this->dob = $dob;
+		} else {
+			throw new \Exception("Actor Not yet born");
 		}
 	}
 

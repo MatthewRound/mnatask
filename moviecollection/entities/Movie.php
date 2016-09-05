@@ -13,19 +13,34 @@ class Movie extends Entity implements EntityInterface
 	private $releaseDate;
 	private $actors;
 
-	public function 	addActor(Actor $actor)
+	public function	addActor(Actor $actor)
 	{
-		//TODO validation for actors age  vs film age
-		$this->actors[] = $actor;
+		$actorBornYet = false;
+		$actorDob = $actor->getDob();
+		$releaseDate = $this->releaseDate;
+		$interval = $this->releaseDate->diff($actorDob);
+		$intervalStr = $interval->format('%R%a');
+		$actorBornYet = $intervalStr <= -1;
+		if ($actorBornYet) {
+			$this->actors[] = $actor;
+		} else {
+			throw new \Exception("Actor Born After Movie Release");
+		}
 	}
 
-	public function 	getActors($sortByAge = false)
+
+	public function	getActors($sortByAge = false)
 	{
 		if ($sortByAge) {
-			//TODO sort by age
-		} else {
-			return $this->actors;
+			sort($this->actors, 'moviecollection\entities\Movie::CompareActors');
 		}
+		return $this->actors;
+	}
+
+
+	public static function CompareActors($a, $b)
+	{
+		return $a->getDob()->diff($b->getDob())->format('%R%a') >= 0;
 	}
 
 
@@ -61,21 +76,33 @@ class Movie extends Entity implements EntityInterface
 
 	public function 	setTitle($title = "")
 	{
-		//TODO validation
-		$this->title = $title;
+		$len = strlen($title);
+		$tooShort = $len <= 3;
+		$tooLong = $len >= 200;
+		$titleLengthOk =  !$tooLong && !$tooShort;
+		if($titleLengthOk) {
+			$this->title = $title;
+		} else {
+			throw new \Exception("Title length invalid");
+		}
 	}
 
 
 	public function 	setRuntime($runtime = 60)
 	{
-		//TODO validation
-		$this->runtime = $runtime;
+		$tooShort = $runtime <= 1;
+		$tooLong = $runtime >= 400;
+		$lengthOk = !$tooLong && !$tooShort;
+		if ($lengthOk) {
+			$this->runtime = $runtime;
+		} else {
+			throw new \Exception("Runtime length invalid");
+		}
 	}
 
 
 	public function 	setReleaseDate(DateTime $releaseDate)
 	{
-		//TODO validation
 		$this->releaseDate = $releaseDate;
 	}
 
