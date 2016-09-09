@@ -60,7 +60,7 @@ abstract class Entity
      * @access public
      * @return String the uuid
      */
-    public function getUUID()
+    public function getUUID() : string
     {
         if ($this->uuid == 0) {
             $this->uuid = $this->generateUUID();

@@ -14,8 +14,7 @@
  */
 
 use \DateTime;
-use moviecollection\entities\Entity;
-use moviecollection\entities\EntityInterface;
+use moviecollection\entities\{Entity,EntityInterface};
 
 /**
  * Actor
@@ -62,7 +61,7 @@ class Actor extends Entity implements EntityInterface
      * @access public
      * @return string
      */
-    public function generateUUID()
+    public function generateUUID() : string
     {
         $str = $this->name . $this->dob->format('Y-M-d');
         $hash = md5($str);
@@ -93,7 +92,7 @@ class Actor extends Entity implements EntityInterface
      * @access public
      * @return string
      */
-    public function getName()
+    public function getName() : string
     {
         return $this->name;
     }
@@ -107,7 +106,7 @@ class Actor extends Entity implements EntityInterface
      * @access public
      * @return \DateTime
      */
-    public function getDob()
+    public function getDob() : DateTime
     {
         return $this->dob;
     }
@@ -167,7 +166,7 @@ class Actor extends Entity implements EntityInterface
      * @access public
      * @return \moviecollection\entities\Actor
      */
-    public static function generate($name, $dob)
+    public static function generate($name, $dob) : Actor
     {
         $self = new self();
         try {
@@ -189,7 +188,7 @@ class Actor extends Entity implements EntityInterface
      * @access public
      * @return string
      */
-    public function toJson()
+    public function toJson() : string
     {
         $ob = new \StdClass();
         $ob->name = $this->name;

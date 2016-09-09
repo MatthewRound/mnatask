@@ -34,5 +34,5 @@ interface EntityInterface
      * @access public
      * @return string
      */
-    public function generateUUID();
+    public function generateUUID() : string;
 }

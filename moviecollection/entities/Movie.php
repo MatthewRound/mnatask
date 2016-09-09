@@ -14,8 +14,7 @@
  */
 
 use \DateTime;
-use moviecollection\entities\Actor;
-use moviecollection\entities\EntityInterface;
+use moviecollection\entities\{Actor,EntityInterface};
 
 /**
  * Movie
@@ -112,7 +111,7 @@ class Movie extends Entity implements EntityInterface
      * @access public
      * @return [\moviecollection\entities\Actor]
      */
-    public function getActors($sortByAge = false)
+    public function getActors($sortByAge = false) : array
     {
         if ($sortByAge) {
             usort($this->actors, 'moviecollection\entities\Movie::compareActors');
@@ -133,7 +132,7 @@ class Movie extends Entity implements EntityInterface
      * @access public
      * @return bool
      */
-    public static function compareActors($a, $b)
+    public static function compareActors($a, $b) : bool
     {
         return $a->getDob()->diff($b->getDob())->format('%R%a') <= 0;
     }
@@ -147,7 +146,7 @@ class Movie extends Entity implements EntityInterface
      * @access public
      * @return String
      */
-    public function generateUUID()
+    public function generateUUID() : string
     {
         $str = $this->title . $this->releaseDate->format("Y-m-d") . $this->runtime;
         $hash = md5($str);
@@ -185,7 +184,7 @@ class Movie extends Entity implements EntityInterface
      * @access public
      * @return /moviecollection/entities/Movie
      */
-    public static function generate(DateTime $releaseDate, $title = '', $runtime = 60)
+    public static function generate(DateTime $releaseDate, $title = '', $runtime = 60) : Movie
     {
         try {
             $self = new self();
@@ -268,7 +267,7 @@ class Movie extends Entity implements EntityInterface
      * @access public
      * @return string
      */
-    public function toJson()
+    public function toJson() : string
     {
         $ob = new \StdClass();
         $ob->title = $this->title;

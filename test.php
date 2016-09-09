@@ -40,5 +40,7 @@ $movie->addActor($dave, "Son");
 
 
 // To Use
-// $json = $movie->toJson();
-// $sortedActors = $movie->getActors($_sortByAge = true);
+$json = $movie->toJson();
+echo 'test.php(+43 1-5),json type=';var_dump($json);
+$sortedActors = $movie->getActors($_sortByAge = true);
+echo 'test.php(+45 1-13),sortedActors type=';var_dump($sortedActors);
