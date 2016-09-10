@@ -1,19 +1,7 @@
 <?php namespace moviecollection\entities;
 
-/**
- * Holds the class moviecollection/entities/Actor.php
- *
- * PHP version 5
- *
- * @category Core
- * @package  moviecollection/entities/Actor.php
- * @author   Matthew Round <roundyz32@gmail.com>
- * @license  (All rights and ownership reserved)
- * @link
- *
- */
-
 use \DateTime;
+use \JsonSerializable;
 use moviecollection\entities\{Entity,EntityInterface};
 
 /**
@@ -27,7 +15,7 @@ use moviecollection\entities\{Entity,EntityInterface};
  * @author    Matthew Round <roundyz32@gmail.com>
  * @license   All rights and ownership reserved
  */
-class Actor extends Entity implements EntityInterface
+class Actor extends Entity implements EntityInterface, JsonSerializable
 {
 
 
@@ -194,25 +182,25 @@ class Actor extends Entity implements EntityInterface
             $self->setDob($dob);
             $self->getUUID();
         } catch (Execption $e) {
-            sprintf("Error:%s", $e->getMessage());
+            printf("Error:%s", $e->getMessage());
         }
         return $self;
     }
 
 
     /**
-     * toJson
+     * jsonSerialize
      *
-     * Represents this as json string
+     * represents this as json
      *
      * @access public
-     * @return string
+     * @return \StdClass
      */
-    public function toJson() : string
+    public function jsonSerialize() : \StdClass
     {
         $ob = new \StdClass();
         $ob->name = $this->name;
         $ob->dob = $this->dob->format('Y-M-d');
-        return json_encode($ob);
+        return $ob;
     }
 }

@@ -1,19 +1,7 @@
 <?php namespace moviecollection\entities;
 
-/**
- * Holds the class moviecollection/entities/Movie.php
- *
- * PHP version 5
- *
- * @category Core
- * @package  moviecollection/entities/Movie.php
- * @author   Matthew Round <roundyz32@gmail.com>
- * @license  (All rights and ownership reserved)
- * @link
- *
- */
-
 use \DateTime;
+use \JsonSerializable;
 use moviecollection\entities\{Actor,EntityInterface};
 
 /**
@@ -21,13 +9,14 @@ use moviecollection\entities\{Actor,EntityInterface};
  *
  * @uses      Entity
  * @uses      EntityInterface
+ * @uses      JsonSerializable
  * @package   moviecollection\entities
  * @version   1.0
  * @copyright 2016
  * @author    Matthew Round <roundyz32@gmail.com>
  * @license   All rights and ownership reserved
  */
-class Movie extends Entity implements EntityInterface
+class Movie extends Entity implements EntityInterface, JsonSerializable
 {
 
 
@@ -109,8 +98,8 @@ class Movie extends Entity implements EntityInterface
     public function getActors($sortByAge = false) : array
     {
         if ($sortByAge) {
-            $c = function($a, $b) {
-				return $a == $b;
+            $c = function ($a, $b) {
+                return $a == $b;
             };
             usort($this->actors, $c);
         }
@@ -193,21 +182,21 @@ class Movie extends Entity implements EntityInterface
     }
 
 
-	/**
-	 * validateRunTime
-	 *
-	 * Validates a movie's runtime
-	 *
-	 * @param mixed $runtime
-	 * @access public
-	 * @return void
-	 */
-	public function	validateRunTime($runtime)
-	{
+    /**
+     * validateRunTime
+     *
+     * Validates a movie's runtime
+     *
+     * @param mixed $runtime
+     * @access public
+     * @return void
+     */
+    public function validateRunTime($runtime)
+    {
         $tooShort = $runtime <= 1;
         $tooLong = $runtime >= 400;
         return !$tooLong && !$tooShort;
-	}
+    }
 
 
     /**
@@ -226,14 +215,14 @@ class Movie extends Entity implements EntityInterface
 
 
     /**
-     * toJson
+     * jsonSerialize
      *
-     * Represents this object as json
+     * represents this as json
      *
      * @access public
-     * @return string
+     * @return \StdClass
      */
-    public function toJson() : string
+    public function jsonSerialize() : \StdClass
     {
         $ob = new \StdClass();
         $ob->title = $this->title;
@@ -241,8 +230,8 @@ class Movie extends Entity implements EntityInterface
         $ob->releaseDate = $this->releaseDate->format('Y-M-d');
         $ob->actors = [];
         foreach ($this->actors as $role => $actor) {
-            $ob->actors[$role] = $actor->toJson();
+            $ob->actors[$role] = json_encode($actor);
         }
-        return json_encode($ob);
+        return $ob;
     }
 }

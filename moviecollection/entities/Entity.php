@@ -1,19 +1,6 @@
 <?php namespace moviecollection\entities;
 
 /**
- * Holds the class moviecollection/entities/Entity.php
- *
- * PHP version 5
- *
- * @category Core
- * @package  moviecollection/entities/Entity.php
- * @author   Matthew Round <roundyz32@gmail.com>
- * @license  (All rights and ownership reserved)
- * @link
- *
- */
-
-/**
  * Entity
  *
  * @abstract
