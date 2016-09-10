@@ -88,13 +88,8 @@ class Movie extends Entity implements EntityInterface
      */
     public function addActor(Actor $actor, $character = "Character")
     {
-        $actorBornYet = false;
-        $actorDob = $actor->getDob();
-        $releaseDate = $this->releaseDate;
-        $interval = $this->releaseDate->diff($actorDob);
-        $intervalStr = $interval->format('%R%a');
-        $actorBornYet = $intervalStr <= -1;
-        if ($actorBornYet) {
+
+        if ($actor->isBornBefore($this->releaseDate)) {
             $this->actors[$character] = $actor;
         } else {
             throw new \Exception("Actor Born After Movie Release");
@@ -114,27 +109,12 @@ class Movie extends Entity implements EntityInterface
     public function getActors($sortByAge = false) : array
     {
         if ($sortByAge) {
-            usort($this->actors, 'moviecollection\entities\Movie::compareActors');
+            $c = function($a, $b) {
+                return $a->getDob()->diff($b->getDob())->format('%R%a') <= 0;
+            };
+            usort($this->actors, $c);
         }
         return $this->actors;
-    }
-
-
-    /**
-     * CompareActors
-     *
-     * Comapres two Actors for thier dob
-     *
-     * @param \moviecollection\entities\Actors $a
-     * @param \moviecollection\entities\Actors $b
-     *
-     * @static
-     * @access public
-     * @return bool
-     */
-    public static function compareActors($a, $b) : bool
-    {
-        return $a->getDob()->diff($b->getDob())->format('%R%a') <= 0;
     }
 
 
@@ -184,7 +164,7 @@ class Movie extends Entity implements EntityInterface
      * @access public
      * @return /moviecollection/entities/Movie
      */
-    public static function generate(DateTime $releaseDate, $title = '', $runtime = 60) : Movie
+    public static function generate(DateTime $releaseDate, $title, $runtime) : Movie
     {
         try {
             $self = new self();
@@ -208,7 +188,7 @@ class Movie extends Entity implements EntityInterface
      * @access public
      * @return void
      */
-    public function setTitle($title = "")
+    public function setTitle($title = "A Generic Title")
     {
         $len = strlen($title);
         $tooShort = $len <= 3;
@@ -233,15 +213,29 @@ class Movie extends Entity implements EntityInterface
      */
     public function setRuntime($runtime = 60)
     {
-        $tooShort = $runtime <= 1;
-        $tooLong = $runtime >= 400;
-        $lengthOk = !$tooLong && !$tooShort;
-        if ($lengthOk) {
+        if ($this->validateRunTime($runtime)) {
             $this->runtime = $runtime;
         } else {
             throw new \Exception("Runtime length invalid");
         }
     }
+
+
+	/**
+	 * validateRunTime
+	 *
+	 * Validates a movie's runtime
+	 *
+	 * @param mixed $runtime
+	 * @access public
+	 * @return void
+	 */
+	public function	validateRunTime($runtime)
+	{
+        $tooShort = $runtime <= 1;
+        $tooLong = $runtime >= 400;
+        return !$tooLong && !$tooShort;
+	}
 
 
     /**

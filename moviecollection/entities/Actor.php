@@ -54,11 +54,33 @@ class Actor extends Entity implements EntityInterface
 
 
     /**
+     * isBornBefore
+     *
+     * Checks to see if an actor is born before a date
+     *
+     * @param \DateTime $when The date to check against
+     *
+     * @access public
+     * @return bool
+     */
+    public function isBornBefore(\DateTime $when): bool
+    {
+
+        $actorBornYet = false;
+        $actorDob = $this->getDob();
+        $interval = $when->diff($actorDob);
+        $intervalStr = $interval->format('%R%a');
+        $actorBornYet = $intervalStr <= -1;
+        return $actorBornYet;
+    }
+
+
+    /**
      * generateUUID
      *
      * Generates a uuid for this actor
      *
-     * @access public
+     * @access protected
      * @return string
      */
     public function generateUUID() : string

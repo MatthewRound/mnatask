@@ -17,13 +17,14 @@
  * Entity
  *
  * @abstract
+ * @uses     EntityInterface
  * @package   moviecollection/entities
  * @version   1.0
  * @copyright 2016
  * @author    Matthew Round <roundyz32@gmail.com>
  * @license   All rights and ownership reserved
  */
-abstract class Entity
+abstract class Entity implements EntityInterface
 {
 
 
