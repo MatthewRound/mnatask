@@ -110,7 +110,7 @@ class Movie extends Entity implements EntityInterface
     {
         if ($sortByAge) {
             $c = function($a, $b) {
-                return $a->getDob()->diff($b->getDob())->format('%R%a') <= 0;
+				return $a == $b;
             };
             usort($this->actors, $c);
         }
