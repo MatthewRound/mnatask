@@ -166,9 +166,7 @@ class Actor extends Entity implements EntityInterface
     public function setDob(\DateTime $dob)
     {
         $now = new DateTime();
-        $interval = $now->diff($dob);
-        $intervalStr = $interval->format('%R%a');
-        $hasBeenBornYet = $intervalStr <= -1;
+        $hasBeenBornYet = $dob <= $now;
         if ($hasBeenBornYet) {
             $this->dob = $dob;
         } else {

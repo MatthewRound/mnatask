@@ -32,11 +32,20 @@ $dave = Actor::generate("Dave", $date);
 
 $date = new DateTime();
 $date->setDate(2016, 1, 1);
-$movie = Movie::generate($date, $_title = "A home movie: Alisons Birtday", $_runTime = 90);
-$movie->addActor($mom, "Mother");
-$movie->addActor($dad, "Father");
-$movie->addActor($alison, "Daughter");
-$movie->addActor($dave, "Son");
+/* $movie = Movie::generate($date, $_title = "A home movie: Alisons Birtday", $_runTime = 90); */
+$movie = new Movie();
+try {
+	$movie->setTitle("A home movie: Alison's Birthday");
+	$movie->setRuntime(90);
+	$movie->setReleaseDate($date);
+	$movie->getUUID($date);
+	$movie->addActor($mom, "Mother");
+	$movie->addActor($dad, "Father");
+	$movie->addActor($alison, "Daughter");
+	$movie->addActor($dave, "Son");
+} catch (Exception $e) {
+
+}
 
 
 // To Use

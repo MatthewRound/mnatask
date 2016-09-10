@@ -142,40 +142,12 @@ class Movie extends Entity implements EntityInterface
      * @access private
      * @return void
      */
-    private function __construct()
+    public function __construct()
     {
         $this->title = "";
         $this->runtime = 60;
         $this->releaseDate = new DateTime();
         $this->actors = [];
-    }
-
-
-    /**
-     * generate
-     *
-     * Generates a movie based on arguments
-     *
-     * @param DateTime $releaseDate The movie release date
-     * @param string   $title       The movie title
-     * @param int      $runtime     The runtime
-     *
-     * @static
-     * @access public
-     * @return /moviecollection/entities/Movie
-     */
-    public static function generate(DateTime $releaseDate, $title, $runtime) : Movie
-    {
-        try {
-            $self = new self();
-            $self->setTitle($title);
-            $self->setRuntime($runtime);
-            $self->setReleaseDate($releaseDate);
-            $self->getUUID();
-        } catch (Execption $e) {
-            sprintf("Error:%s", $e->getMessage());
-        }
-        return $self;
     }
 
 
